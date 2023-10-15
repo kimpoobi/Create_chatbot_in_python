@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>chatbot</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"></script>   
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.css"> -->
+    <link href="https://cdn.jsdelivr.net/gh/hung1001/font-awesome-pro@4cac1a6/css/all.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <script>
+
+
+        $(document).ready(function() {
+            var socket = io.connect("http://localhost:5000");
+
+            socket.on('connect', function() {
+                socket.send("User Connected!")
+            });
+
+            socket.on('message', function(data) {
+                console.log(data);
+
+                if (!data.startsWith('[Bot]')) {
+                    var messageContent = `
+                        <div class="media media-chat media-chat-reverse">
+                            <img class="avatar avatar-xs" src="https://img.icons8.com/color/36/000000/administrator-female.png" alt="...">
+                            <div class="media-body">
+                                <p>${data}</p>
+                                <p class="meta"><time datetime="2018">00:12</time></p>
+                            </div>
+                        </div>
+                    `;
+
+                    $("#chat-content").append(messageContent);
+                }
+                else {
+                    var messageContent = `
+                        <div class="media media-chat">
+                            <img class="avatar" src="https://img.icons8.com/color/36/000000/bot.png" alt="...">
+                            <div class="media-body">
+                                <p>${data}</p>
+                            </div>
+                        </div>
+                    `;
+
+                    $("#chat-content").append(messageContent);
+                }
+
+                var chatContent = document.getElementById("chat-content");
+                chatContent.scrollTop = chatContent.scrollHeight;
+            });
+
+            $('#sendBtn').on('click', function () {
+                sendMessage();
+            });
+
+            // Add this event listener for Enter key press
+            $('#message').keypress(function (e) {
+                if (e.which === 13) {
+                    sendMessage();
+                }
+            });
+
+            function sendMessage() {
+                var message = $('#message').val();
+                if (message.trim() !== '') {
+                    socket.send(message);
+                    $("#message").val('');
+                }
+                
+            }
+
+        });
+
+        
+    </script>
+    
+    <div class="page-content page-container" id="page-content">
+        <div class="padding">
+            <div class="row container d-flex justify-content-center" style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;">
+                <div class="col-md-6">
+                    <div class="card card-bordered">
+                        <div class="card-header">
+                            <h4 class="card-title"><strong>Chat</strong></h4>
+                            <a class="btn btn-xs btn-secondary" href="#" data-abc="true">AI Assistance</a>
+                        </div>
+                        <div class="ps-container ps-theme-default ps-active-y" id="chat-content" style="overflow-y: scroll !important; height: 500px !important;">
+                            <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 0px;">
+                                <div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px;">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ps-scrollbar-y-rail" style="top: 0px; height: 0px; right: 2px;">
+                            <div class="ps-scrollbar-y" tabindex="0" style="top: 0px; height: 2px;">
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="publisher bt-1 border-light">
+                        <img class="avatar avatar-xs" src="https://img.icons8.com/color/36/000000/administrator-female.png" alt="...">
+                        <input class="publisher-input" type="text" placeholder="Write something" id="message">
+                        <a class="publisher-btn text-info" href="#" data-abc="true" >
+                            <i class="fa fa-paper-plane" id="sendBtn"></i>
+                        </a>
+                    </div>
+    
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="messages">
+
+    </div>
+</body>
+</html>
+
