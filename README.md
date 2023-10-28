@@ -1,10 +1,34 @@
 # Chat BOT
 
-## Problem Definition:
+## About Chat BOT:
 In the ever-evolving landscape of online services and e-commerce, there exists a critical need to enhance user experiences by offering immediate and effective customer service. The current customer service solutions often lack the availability and swiftness required to address users' queries and concerns promptly. Traditional customer service hotlines and email support systems are not only time-consuming but also often unable to provide instant solutions, leading to frustrated and dissatisfied customers.
 
-## Design Thinking:
-To tackle this challenge, we propose the development of a sophisticated chatbot system that leverages Natural Language Processing (NLP) and AI algorithms. This chatbot will serve as an AI-powered concierge, guiding users through their interactions with websites and apps. The primary aim of this project is to transform the traditional concept of customer service into an always available virtual assistance, much like a knowledgeable hotel concierge offering guidance at any time.
+## Features
+
+- Real time quick chat bot response 24/7 
+![image](https://github.com/kimpoobi/Create_chatbot_in_python/assets/86729101/c5c8f19d-ce59-4b44-996e-c271def2b539)
+
+
+## Getting Started:
+
+To get started with this project, follow these steps:
+
+1. Cloning the repository
+
+`git clone https://github.com/kimpoobi/Create_chatbot_in_python`
+
+2. Install the required libraries for python
+
+`cd Create_chatbot_in_python && pip install -r requirements.txt`
+
+3. Deployment
+
+
+`cd app && python app.py`
+
+
+All set if everything running without errors. Open a browser and navigate to http://localhost:5000
+
 
 ## Key Aspects of the Solution:
 
